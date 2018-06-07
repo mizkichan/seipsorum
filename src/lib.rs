@@ -98,5 +98,13 @@ mod tests {
                 kakaseraretagarimasumai.to_string()
             );
         }
+
+        {
+            let kak = kak.clone();
+            let ita = SyntacticalVerbalSuffix::new('i', "ta");
+
+            let kaita = Verb::new(kak, ita);
+            assert_eq!("kaita", kaita.to_string());
+        }
     }
 }
