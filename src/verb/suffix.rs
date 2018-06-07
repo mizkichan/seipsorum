@@ -1,5 +1,5 @@
 /// 統語動詞接尾辞
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct SyntacticalVerbalSuffix {
     /// 連結子音または連結母音
     juncture: Option<char>,
@@ -54,7 +54,7 @@ impl SyntacticalVerbalSuffix {
 }
 
 /// 派生動詞接尾辞
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct DerivationalVerbalSuffix {
     /// 連結子音または連結母音
     juncture: char,

@@ -5,7 +5,7 @@ use verb::suffix::SyntacticalVerbalSuffix;
 use Word;
 
 /// 動詞
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct Verb {
     /// 語幹
     stem: VerbStem,

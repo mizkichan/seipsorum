@@ -3,7 +3,7 @@ use std::fmt::{Display, Formatter};
 use verb::suffix::DerivationalVerbalSuffix;
 
 /// 動詞幹
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub enum VerbStem {
     Primary(VerbPrimaryStem),
     Secondary(Box<VerbSecondaryStem>),
@@ -47,7 +47,7 @@ impl From<VerbSecondaryStem> for VerbStem {
 }
 
 /// 動詞の一次語幹
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct VerbPrimaryStem {
     /// 語幹
     stem: String,
@@ -87,7 +87,7 @@ impl Display for VerbPrimaryStem {
 }
 
 /// 動詞の二次語幹
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct VerbSecondaryStem {
     /// 一次語幹
     stem: VerbStem,
