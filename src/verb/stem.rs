@@ -6,7 +6,7 @@ use verb::suffix::DerivationalVerbalSuffix;
 #[derive(Clone)]
 pub enum VerbStem {
     Primary(VerbPrimaryStem),
-    Secondary(VerbSecondaryStem),
+    Secondary(Box<VerbSecondaryStem>),
 }
 
 impl VerbStem {
@@ -42,7 +42,7 @@ impl From<VerbPrimaryStem> for VerbStem {
 
 impl From<VerbSecondaryStem> for VerbStem {
     fn from(secondary_stem: VerbSecondaryStem) -> VerbStem {
-        VerbStem::Secondary(secondary_stem)
+        VerbStem::Secondary(box secondary_stem)
     }
 }
 
@@ -90,7 +90,7 @@ impl Display for VerbPrimaryStem {
 #[derive(Clone)]
 pub struct VerbSecondaryStem {
     /// 一次語幹
-    primary_stem: VerbPrimaryStem,
+    stem: VerbStem,
 
     /// 派生接尾辞
     derivational_suffix: DerivationalVerbalSuffix,
@@ -98,15 +98,15 @@ pub struct VerbSecondaryStem {
 
 impl VerbSecondaryStem {
     pub fn new<IntoStem, IntoSuffix>(
-        primary_stem: IntoStem,
+        stem: IntoStem,
         derivational_suffix: IntoSuffix,
     ) -> VerbSecondaryStem
     where
-        IntoStem: Into<VerbPrimaryStem>,
+        IntoStem: Into<VerbStem>,
         IntoSuffix: Into<DerivationalVerbalSuffix>,
     {
         VerbSecondaryStem {
-            primary_stem: primary_stem.into(),
+            stem: stem.into(),
             derivational_suffix: derivational_suffix.into(),
         }
     }
@@ -122,7 +122,7 @@ impl VerbSecondaryStem {
 
 impl Display for VerbSecondaryStem {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        let suffix = if self.primary_stem.is_consonant_stem() {
+        let suffix = if self.stem.is_consonant_stem() {
             if self.derivational_suffix.has_juncture_consonant() {
                 self.derivational_suffix.without_juncture()
             } else if self.derivational_suffix.has_juncture_vowel() {
@@ -130,7 +130,7 @@ impl Display for VerbSecondaryStem {
             } else {
                 unreachable!();
             }
-        } else if self.primary_stem.is_vowel_stem() {
+        } else if self.stem.is_vowel_stem() {
             if self.derivational_suffix.has_juncture_consonant() {
                 self.derivational_suffix.with_juncture()
             } else if self.derivational_suffix.has_juncture_vowel() {
@@ -142,6 +142,6 @@ impl Display for VerbSecondaryStem {
             unreachable!();
         };
 
-        write!(f, "{}{}", self.primary_stem, suffix)
+        write!(f, "{}{}", self.stem, suffix)
     }
 }

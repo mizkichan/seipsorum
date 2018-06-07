@@ -1,3 +1,4 @@
+#![feature(box_syntax)]
 mod word;
 pub use word::Word;
 
@@ -77,6 +78,25 @@ mod tests {
             let mina = VerbSecondaryStem::new(mi, ana);
             let minai = Verb::new(mina, i);
             assert_eq!("minai", minai.to_string());
+        }
+
+        {
+            let kak = kak.clone();
+            let sase = sase.clone();
+            let rare = DerivationalVerbalSuffix::new('r', "are");
+            let itagar = DerivationalVerbalSuffix::new('i', "tagar");
+            let imas = DerivationalVerbalSuffix::new('i', "mas");
+            let umai = SyntacticalVerbalSuffix::new('u', "mai");
+
+            let kakase = VerbSecondaryStem::new(kak, sase);
+            let kakaserare = VerbSecondaryStem::new(kakase, rare);
+            let kakaseraretagar = VerbSecondaryStem::new(kakaserare, itagar);
+            let kakaseraretagarimas = VerbSecondaryStem::new(kakaseraretagar, imas);
+            let kakaseraretagarimasumai = Verb::new(kakaseraretagarimas, umai);
+            assert_eq!(
+                "kakaseraretagarimasumai",
+                kakaseraretagarimasumai.to_string()
+            );
         }
     }
 }
