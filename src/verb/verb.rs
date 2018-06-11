@@ -29,7 +29,6 @@ impl Verb {
 
 impl Display for Verb {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        // FIXME: following code is getting to be stupid!
         let suffix = if self.stem.is_consonant_stem() {
             if self.syntactical_suffix.has_juncture_vowel() {
                 self.syntactical_suffix.with_juncture()
@@ -43,7 +42,7 @@ impl Display for Verb {
                 self.syntactical_suffix.without_juncture()
             }
         } else {
-            unreachable!();
+            unreachable!()
         };
 
         write!(f, "{}{}", self.stem, suffix)

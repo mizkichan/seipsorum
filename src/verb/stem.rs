@@ -123,23 +123,19 @@ impl VerbSecondaryStem {
 impl Display for VerbSecondaryStem {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         let suffix = if self.stem.is_consonant_stem() {
-            if self.derivational_suffix.has_juncture_consonant() {
-                self.derivational_suffix.without_juncture()
-            } else if self.derivational_suffix.has_juncture_vowel() {
+            if self.derivational_suffix.has_juncture_vowel() {
                 self.derivational_suffix.with_juncture()
             } else {
-                unreachable!();
+                self.derivational_suffix.without_juncture()
             }
         } else if self.stem.is_vowel_stem() {
             if self.derivational_suffix.has_juncture_consonant() {
                 self.derivational_suffix.with_juncture()
-            } else if self.derivational_suffix.has_juncture_vowel() {
-                self.derivational_suffix.without_juncture()
             } else {
-                unreachable!();
+                self.derivational_suffix.without_juncture()
             }
         } else {
-            unreachable!();
+            unreachable!()
         };
 
         write!(f, "{}{}", self.stem, suffix)
