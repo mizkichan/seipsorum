@@ -1,6 +1,6 @@
+use meaning_bear_sound::bound_sound::suffix::verbal_suffix::derivational_verbal_suffix::DerivationalVerbalSuffix;
 use std::fmt;
 use std::fmt::{Display, Formatter};
-use verb::suffix::DerivationalVerbalSuffix;
 
 /// 動詞幹
 #[derive(Debug, Clone)]
