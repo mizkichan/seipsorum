@@ -1,3 +1,5 @@
+//! 有意音
+
 pub mod bound_sound;
 pub mod unbound_sound;
 

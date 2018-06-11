@@ -1,3 +1,5 @@
+//! 名詞
+
 pub mod noun_qualitative;
 pub mod noun_substansive;
 use self::noun_qualitative::NounQualitative;

@@ -1,3 +1,5 @@
+//! 従属音
+
 pub mod suffix;
 use self::suffix::Suffix;
 

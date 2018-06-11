@@ -1,3 +1,5 @@
+//! 動詞
+
 pub mod action_verb;
 pub mod qualitative_verb;
 use self::action_verb::ActionVerb;

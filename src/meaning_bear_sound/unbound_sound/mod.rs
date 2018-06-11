@@ -1,3 +1,5 @@
+//! 自立音
+
 pub mod non_verbal;
 pub mod verbal;
 use self::non_verbal::NonVerbal;

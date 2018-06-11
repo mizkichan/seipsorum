@@ -1,3 +1,5 @@
+//! 接尾辞
+
 pub mod verbal_suffix;
 use self::verbal_suffix::VerbalSuffix;
 

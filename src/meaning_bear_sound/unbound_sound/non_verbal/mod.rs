@@ -1,3 +1,5 @@
+//! 非動詞
+
 pub mod nominal;
 pub mod qualifier;
 use self::nominal::Nominal;

@@ -1,3 +1,5 @@
+//! 副用詞
+
 pub mod adverb;
 pub mod attribute;
 use self::adverb::Adverb;

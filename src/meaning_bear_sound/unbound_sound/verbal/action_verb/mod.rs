@@ -1,10 +1,12 @@
+//! 動作動詞
+
 mod stem;
 use self::stem::VerbStem;
 use meaning_bear_sound::bound_sound::suffix::verbal_suffix::grammatical_verbal_suffix::GrammaticalVerbalSuffix;
 use std::fmt;
 use std::fmt::{Display, Formatter};
 
-/// 動詞
+/// 動作動詞
 #[derive(Debug, Clone)]
 pub struct ActionVerb {
     /// 語幹
@@ -15,6 +17,7 @@ pub struct ActionVerb {
 }
 
 impl ActionVerb {
+    /// 語幹と動詞接尾辞から動作動詞を作成する．
     pub fn new<IntoStem, IntoSuffix>(stem: IntoStem, suffix: IntoSuffix) -> ActionVerb
     where
         IntoStem: Into<VerbStem>,
