@@ -29,6 +29,26 @@ impl Verb {
 
 impl Display for Verb {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        // 連声の処理
+        fn ita(stem: &VerbStem) -> Option<String> {
+            let mut result = stem.to_string();
+            match result.pop().unwrap() {
+                'k' => result.push_str("ita"),
+                'g' => result.push_str("ida"),
+                't' | 'r' | 'w' => result.push_str("tta"),
+                'n' | 'm' => result.push_str("nda"),
+                's' => result.push_str("sita"),
+                _ => return None,
+            }
+            Some(result)
+        }
+
+        if self.syntactical_suffix.with_juncture() == "ita" {
+            if let Some(result) = ita(&self.stem) {
+                return f.write_str(&result);
+            }
+        }
+
         let suffix = if self.stem.is_consonant_stem() {
             if self.syntactical_suffix.has_juncture_vowel() {
                 self.syntactical_suffix.with_juncture()
