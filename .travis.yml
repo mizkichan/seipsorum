@@ -10,6 +10,12 @@ cache:
     - $HOME/.rustup
     - $HOME/kcov
 
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local-dir: target/doc
+
 addons:
   apt:
     packages:
@@ -20,6 +26,11 @@ addons:
       - gcc
       - binutils-dev
       - libiberty-dev
+
+script:
+  - cargo test --verbose
+  - cargo doc
+  - touch target/doc/index.html
 
 before_install:
   echo "Building kcov..." &&
