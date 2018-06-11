@@ -2,7 +2,6 @@ use std::fmt;
 use std::fmt::{Display, Formatter};
 use verb::stem::VerbStem;
 use verb::suffix::SyntacticalVerbalSuffix;
-use Word;
 
 /// 動詞
 #[derive(Debug, Clone)]
@@ -68,5 +67,3 @@ impl Display for Verb {
         write!(f, "{}{}", self.stem, suffix)
     }
 }
-
-impl Word for Verb {}

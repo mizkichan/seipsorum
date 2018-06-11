@@ -1,7 +1,4 @@
 #![feature(box_syntax)]
-mod word;
-pub use word::Word;
-
 pub mod verb;
 
 #[cfg(test)]
