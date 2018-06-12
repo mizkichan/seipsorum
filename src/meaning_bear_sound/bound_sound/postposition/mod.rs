@@ -1,4 +1,4 @@
-//! 接尾辞
+//! 助辞
 
 pub mod clause_postposition;
 pub mod phrase_postposition;
