@@ -2,14 +2,14 @@
 
 pub mod clause_postposition;
 pub mod phrase_postposition;
-use self::clause_postposition::ClausePostPosition;
-use self::phrase_postposition::PhrasePostPosition;
+use self::clause_postposition::ClausePostposition;
+use self::phrase_postposition::PhrasePostposition;
 
 /// 助辞
-pub enum PostPosition {
+pub enum Postposition {
     /// 句助辞
-    PhrasePostPosition(PhrasePostPosition),
+    PhrasePostposition(PhrasePostposition),
 
     /// 文助辞
-    ClausePostPosition(ClausePostPosition),
+    ClausePostposition(ClausePostposition),
 }

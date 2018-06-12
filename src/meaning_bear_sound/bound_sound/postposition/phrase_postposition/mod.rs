@@ -2,14 +2,14 @@
 
 pub mod adverbal_postposition;
 pub mod thematic_postposition;
-use self::adverbal_postposition::AdverbalPostPosition;
-use self::thematic_postposition::ThematicPostPosition;
+use self::adverbal_postposition::AdverbalPostposition;
+use self::thematic_postposition::ThematicPostposition;
 
 /// 句助辞
-pub enum PhrasePostPosition {
+pub enum PhrasePostposition {
     /// 副助辞
-    AdverbalPostPosition(AdverbalPostPosition),
+    AdverbalPostposition(AdverbalPostposition),
 
     /// 提題助辞
-    ThematicPostPosition(ThematicPostPosition),
+    ThematicPostposition(ThematicPostposition),
 }

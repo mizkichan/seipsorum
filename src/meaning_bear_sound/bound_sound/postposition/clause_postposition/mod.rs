@@ -2,14 +2,14 @@
 
 pub mod conjunctive_postposition;
 pub mod sentence_final_postposition;
-use self::conjunctive_postposition::ConjunctivePostPosition;
-use self::sentence_final_postposition::SentenceFinalPostPosition;
+use self::conjunctive_postposition::ConjunctivePostposition;
+use self::sentence_final_postposition::SentenceFinalPostposition;
 
 /// 文助辞
-pub enum ClausePostPosition {
+pub enum ClausePostposition {
     /// 終続助辞
-    ConjunctivePostPosition(ConjunctivePostPosition),
+    ConjunctivePostposition(ConjunctivePostposition),
 
     /// 終助辞
-    SentenceFinalPostPosition(SentenceFinalPostPosition),
+    SentenceFinalPostposition(SentenceFinalPostposition),
 }
