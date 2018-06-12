@@ -6,3 +6,4 @@
 #![deny(missing_docs)]
 
 pub mod meaning_bear_sound;
+pub mod sentence;
