@@ -11,8 +11,8 @@ pub struct ActionVerb {
     /// 語幹
     stem: ActionVerbStem,
 
-    /// 統語接尾辞
-    syntactical_suffix: GrammaticalVerbalSuffix,
+    /// 文法接尾辞
+    grammatical_suffix: GrammaticalVerbalSuffix,
 }
 
 impl ActionVerb {
@@ -24,7 +24,7 @@ impl ActionVerb {
     {
         ActionVerb {
             stem: stem.into(),
-            syntactical_suffix: suffix.into(),
+            grammatical_suffix: suffix.into(),
         }
     }
 }
@@ -45,23 +45,23 @@ impl Display for ActionVerb {
             Some(result)
         }
 
-        if self.syntactical_suffix.with_juncture() == "ita" {
+        if self.grammatical_suffix.with_juncture() == "ita" {
             if let Some(result) = ita(&self.stem) {
                 return f.write_str(&result);
             }
         }
 
         let suffix = if self.stem.is_consonant_stem() {
-            if self.syntactical_suffix.has_juncture_vowel() {
-                self.syntactical_suffix.with_juncture()
+            if self.grammatical_suffix.has_juncture_vowel() {
+                self.grammatical_suffix.with_juncture()
             } else {
-                self.syntactical_suffix.without_juncture()
+                self.grammatical_suffix.without_juncture()
             }
         } else if self.stem.is_vowel_stem() {
-            if self.syntactical_suffix.has_juncture_consonant() {
-                self.syntactical_suffix.with_juncture()
+            if self.grammatical_suffix.has_juncture_consonant() {
+                self.grammatical_suffix.with_juncture()
             } else {
-                self.syntactical_suffix.without_juncture()
+                self.grammatical_suffix.without_juncture()
             }
         } else {
             unreachable!()
