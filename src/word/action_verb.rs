@@ -1,9 +1,9 @@
 //! 動作動詞
 
-use super::stem::ActionVerbStem;
-use meaning_bear_sound::bound_sound::suffix::verbal_suffix::grammatical_verbal_suffix::GrammaticalVerbalSuffix;
+use meaning_bear_sound::GrammaticalVerbalSuffix;
 use std::fmt;
 use std::fmt::{Display, Formatter};
+use word::stem::ActionVerbStem;
 
 /// 動作動詞
 #[derive(Debug, Clone)]

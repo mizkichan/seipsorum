@@ -1,9 +1,7 @@
 //! 接尾辞
 
-pub mod nominal_suffix;
-pub mod verbal_suffix;
-pub use self::nominal_suffix::*;
-pub use self::verbal_suffix::*;
+use meaning_bear_sound::NominalSuffix;
+use meaning_bear_sound::VerbalSuffix;
 
 /// 接尾辞
 pub enum Suffix {

@@ -1,9 +1,7 @@
 //! 非動詞
 
-pub mod nominal;
-pub mod qualifier;
-pub use self::nominal::*;
-pub use self::qualifier::*;
+pub use meaning_bear_sound::Nominal;
+pub use meaning_bear_sound::Qualifier;
 
 /// 非動詞
 pub enum NonVerbal {

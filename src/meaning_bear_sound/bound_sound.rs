@@ -1,9 +1,7 @@
 //! 従属音
 
-pub mod postposition;
-pub mod suffix;
-pub use self::postposition::*;
-pub use self::suffix::*;
+pub use meaning_bear_sound::Postposition;
+pub use meaning_bear_sound::Suffix;
 
 /// 従属音
 pub enum BoundSound {

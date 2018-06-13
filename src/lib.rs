@@ -7,4 +7,5 @@
 
 pub mod meaning_bear_sound;
 pub mod sentence;
+#[allow(missing_docs)]
 pub mod word;

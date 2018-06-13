@@ -1,9 +1,7 @@
 //! 名詞接尾辞
 
-pub mod case_suffix;
-pub mod copulative_suffix;
-pub use self::case_suffix::*;
-pub use self::copulative_suffix::*;
+use meaning_bear_sound::CaseSuffix;
+use meaning_bear_sound::CopulativeSuffix;
 
 /// 名詞接尾辞
 pub enum NominalSuffix {

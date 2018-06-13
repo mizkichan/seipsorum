@@ -1,9 +1,7 @@
 //! 動詞
 
-pub mod action_verb;
-pub mod qualitative_verb;
-pub use self::action_verb::*;
-pub use self::qualitative_verb::*;
+use meaning_bear_sound::ActionVerb;
+use meaning_bear_sound::QualitativeVerb;
 
 /// 動詞
 pub enum Verbal {

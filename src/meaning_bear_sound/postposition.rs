@@ -1,9 +1,7 @@
 //! 助辞
 
-pub mod clause_postposition;
-pub mod phrase_postposition;
-pub use self::clause_postposition::*;
-pub use self::phrase_postposition::*;
+use meaning_bear_sound::ClausePostposition;
+use meaning_bear_sound::PhrasePostposition;
 
 /// 助辞
 pub enum Postposition {

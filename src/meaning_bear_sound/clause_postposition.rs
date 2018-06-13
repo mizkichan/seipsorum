@@ -1,9 +1,7 @@
 //! 文助辞
 
-pub mod conjunctive_postposition;
-pub mod sentence_final_postposition;
-pub use self::conjunctive_postposition::*;
-pub use self::sentence_final_postposition::*;
+use meaning_bear_sound::ConjunctivePostposition;
+use meaning_bear_sound::SentenceFinalPostposition;
 
 /// 文助辞
 pub enum ClausePostposition {

@@ -1,4 +1,5 @@
-use meaning_bear_sound::bound_sound::suffix::verbal_suffix::derivational_verbal_suffix::DerivationalVerbalSuffix;
+#![allow(missing_docs)]
+use meaning_bear_sound::DerivationalVerbalSuffix;
 use std::fmt;
 use std::fmt::{Display, Formatter};
 

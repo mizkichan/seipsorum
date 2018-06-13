@@ -1,9 +1,7 @@
 //! 名詞
 
-pub mod noun_qualitative;
-pub mod noun_substantive;
-pub use self::noun_qualitative::*;
-pub use self::noun_substantive::*;
+use meaning_bear_sound::NounQualitative;
+use meaning_bear_sound::NounSubstantive;
 
 /// 名詞
 pub enum Nominal {
