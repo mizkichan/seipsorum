@@ -2,8 +2,8 @@
 
 pub mod postposition;
 pub mod suffix;
-use self::postposition::Postposition;
-use self::suffix::Suffix;
+pub use self::postposition::*;
+pub use self::suffix::*;
 
 /// 従属音
 pub enum BoundSound {

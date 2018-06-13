@@ -2,8 +2,8 @@
 
 pub mod nominal;
 pub mod qualifier;
-use self::nominal::Nominal;
-use self::qualifier::Qualifier;
+pub use self::nominal::*;
+pub use self::qualifier::*;
 
 /// 非動詞
 pub enum NonVerbal {

@@ -2,8 +2,8 @@
 
 pub mod adverbal_postposition;
 pub mod thematic_postposition;
-use self::adverbal_postposition::AdverbalPostposition;
-use self::thematic_postposition::ThematicPostposition;
+pub use self::adverbal_postposition::*;
+pub use self::thematic_postposition::*;
 
 /// 句助辞
 pub enum PhrasePostposition {

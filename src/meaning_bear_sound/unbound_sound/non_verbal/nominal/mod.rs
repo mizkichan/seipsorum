@@ -2,8 +2,8 @@
 
 pub mod noun_qualitative;
 pub mod noun_substantive;
-use self::noun_qualitative::NounQualitative;
-use self::noun_substantive::NounSubstantive;
+pub use self::noun_qualitative::*;
+pub use self::noun_substantive::*;
 
 /// 名詞
 pub enum Nominal {

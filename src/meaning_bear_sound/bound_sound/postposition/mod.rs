@@ -2,8 +2,8 @@
 
 pub mod clause_postposition;
 pub mod phrase_postposition;
-use self::clause_postposition::ClausePostposition;
-use self::phrase_postposition::PhrasePostposition;
+pub use self::clause_postposition::*;
+pub use self::phrase_postposition::*;
 
 /// 助辞
 pub enum Postposition {

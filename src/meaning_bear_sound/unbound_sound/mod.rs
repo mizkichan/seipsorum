@@ -2,8 +2,8 @@
 
 pub mod non_verbal;
 pub mod verbal;
-use self::non_verbal::NonVerbal;
-use self::verbal::Verbal;
+pub use self::non_verbal::*;
+pub use self::verbal::*;
 
 /// 自立音
 pub enum UnboundSound {

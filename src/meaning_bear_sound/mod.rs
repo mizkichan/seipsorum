@@ -2,9 +2,8 @@
 
 pub mod bound_sound;
 pub mod unbound_sound;
-
-use self::bound_sound::BoundSound;
-use self::unbound_sound::UnboundSound;
+pub use self::bound_sound::*;
+pub use self::unbound_sound::*;
 
 /// 有意音
 pub enum MeaningBearingSound {

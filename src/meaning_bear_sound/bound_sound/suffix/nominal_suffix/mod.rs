@@ -2,8 +2,8 @@
 
 pub mod case_suffix;
 pub mod copulative_suffix;
-use self::case_suffix::CaseSuffix;
-use self::copulative_suffix::CopulativeSuffix;
+pub use self::case_suffix::*;
+pub use self::copulative_suffix::*;
 
 /// 名詞接尾辞
 pub enum NominalSuffix {

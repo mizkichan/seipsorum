@@ -2,8 +2,8 @@
 
 pub mod action_verb;
 pub mod qualitative_verb;
-use self::action_verb::ActionVerb;
-use self::qualitative_verb::QualitativeVerb;
+pub use self::action_verb::*;
+pub use self::qualitative_verb::*;
 
 /// 動詞
 pub enum Verbal {

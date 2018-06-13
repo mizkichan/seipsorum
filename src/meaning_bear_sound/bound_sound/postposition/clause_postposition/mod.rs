@@ -2,8 +2,8 @@
 
 pub mod conjunctive_postposition;
 pub mod sentence_final_postposition;
-use self::conjunctive_postposition::ConjunctivePostposition;
-use self::sentence_final_postposition::SentenceFinalPostposition;
+pub use self::conjunctive_postposition::*;
+pub use self::sentence_final_postposition::*;
 
 /// 文助辞
 pub enum ClausePostposition {

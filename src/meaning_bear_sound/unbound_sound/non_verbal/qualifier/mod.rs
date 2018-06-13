@@ -2,8 +2,8 @@
 
 pub mod adverb;
 pub mod attribute;
-use self::adverb::Adverb;
-use self::attribute::Attribute;
+pub use self::adverb::*;
+pub use self::attribute::*;
 
 /// 副用詞
 pub enum Qualifier {
