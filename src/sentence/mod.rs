@@ -103,7 +103,7 @@ pub struct AttributiveQualitativeVerb {
 /// 形状動詞幹を表す構造体．
 pub struct QualitativeVerbStem;
 
-/// 名詞の連用形を表す構造体．
+/// 名詞の連体形を表す構造体．
 ///
 /// 主要部は繋辞連体形，従属部は名詞節である．たぶん．
 pub struct AttributiveNoun {
