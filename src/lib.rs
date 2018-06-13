@@ -5,7 +5,7 @@
 #![feature(box_syntax)]
 #![deny(missing_docs)]
 
+pub mod clause;
 pub mod meaning_bear_sound;
 pub mod sentence;
-#[allow(missing_docs)]
 pub mod word;

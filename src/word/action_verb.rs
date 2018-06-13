@@ -1,67 +1,140 @@
 //! 動作動詞
 
-use meaning_bear_sound::GrammaticalVerbalSuffix;
+use meaning_bear_sound::DerivationalVerbalSuffix;
 use std::fmt;
 use std::fmt::{Display, Formatter};
-use word::stem::ActionVerbStem;
 
-/// 動作動詞
+/// 動作動詞幹を表す構造体．
 #[derive(Debug, Clone)]
-pub struct ActionVerb {
-    /// 語幹
-    stem: ActionVerbStem,
-
-    /// 文法接尾辞
-    grammatical_suffix: GrammaticalVerbalSuffix,
+pub enum ActionVerbStem {
+    Primary(VerbPrimaryStem),
+    Secondary(Box<VerbSecondaryStem>),
 }
 
-impl ActionVerb {
-    /// 語幹と動詞接尾辞から動作動詞を作成する．
-    pub fn new<IntoStem, IntoSuffix>(stem: IntoStem, suffix: IntoSuffix) -> ActionVerb
-    where
-        IntoStem: Into<ActionVerbStem>,
-        IntoSuffix: Into<GrammaticalVerbalSuffix>,
-    {
-        ActionVerb {
-            stem: stem.into(),
-            grammatical_suffix: suffix.into(),
+impl ActionVerbStem {
+    pub fn is_consonant_stem(&self) -> bool {
+        match self {
+            ActionVerbStem::Primary(primary) => primary.is_consonant_stem(),
+            ActionVerbStem::Secondary(secondary) => secondary.is_consonant_stem(),
+        }
+    }
+
+    pub fn is_vowel_stem(&self) -> bool {
+        match self {
+            ActionVerbStem::Primary(primary) => primary.is_vowel_stem(),
+            ActionVerbStem::Secondary(secondary) => secondary.is_vowel_stem(),
         }
     }
 }
 
-impl Display for ActionVerb {
+impl Display for ActionVerbStem {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
-        // 連声の処理
-        fn ita(stem: &ActionVerbStem) -> Option<String> {
-            let mut result = stem.to_string();
-            match result.pop().unwrap() {
-                'k' => result.push_str("ita"),
-                'g' => result.push_str("ida"),
-                't' | 'r' | 'w' => result.push_str("tta"),
-                'n' | 'm' => result.push_str("nda"),
-                's' => result.push_str("sita"),
-                _ => return None,
-            }
-            Some(result)
+        match self {
+            ActionVerbStem::Primary(primary) => primary.fmt(f),
+            ActionVerbStem::Secondary(secondary) => secondary.fmt(f),
         }
+    }
+}
 
-        if self.grammatical_suffix.with_juncture() == "ita" {
-            if let Some(result) = ita(&self.stem) {
-                return f.write_str(&result);
-            }
+impl From<VerbPrimaryStem> for ActionVerbStem {
+    fn from(primary_stem: VerbPrimaryStem) -> ActionVerbStem {
+        ActionVerbStem::Primary(primary_stem)
+    }
+}
+
+impl From<VerbSecondaryStem> for ActionVerbStem {
+    fn from(secondary_stem: VerbSecondaryStem) -> ActionVerbStem {
+        ActionVerbStem::Secondary(box secondary_stem)
+    }
+}
+
+/// 動詞の一次語幹
+#[derive(Debug, Clone)]
+pub struct VerbPrimaryStem {
+    /// 語幹
+    stem: String,
+}
+
+impl VerbPrimaryStem {
+    pub fn new<T>(stem: T) -> VerbPrimaryStem
+    where
+        T: Into<String>,
+    {
+        VerbPrimaryStem { stem: stem.into() }
+    }
+
+    pub fn is_consonant_stem(&self) -> bool {
+        let last_characher = self.stem.chars().last().unwrap(); // NOTE: ひどいので `String` は止めて `Vec<u8>` にしたほうがいいかも
+        assert!(match last_characher {
+            'c' | 'f' | 'j' | 'l' | 'q' | 'v' | 'x' => false,
+            other => other.is_ascii_lowercase(),
+        });
+
+        match last_characher {
+            'k' | 'g' | 's' | 'z' | 't' | 'd' | 'n' | 'h' | 'p' | 'b' | 'm' | 'r' | 'w' => true,
+            'a' | 'i' | 'u' | 'e' | 'o' => false,
+            _ => unreachable!(),
         }
+    }
 
+    pub fn is_vowel_stem(&self) -> bool {
+        !self.is_consonant_stem()
+    }
+}
+
+impl Display for VerbPrimaryStem {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
+        self.stem.fmt(f)
+    }
+}
+
+/// 動詞の二次語幹
+#[derive(Debug, Clone)]
+pub struct VerbSecondaryStem {
+    /// 一次語幹
+    stem: ActionVerbStem,
+
+    /// 派生接尾辞
+    derivational_suffix: DerivationalVerbalSuffix,
+}
+
+impl VerbSecondaryStem {
+    pub fn new<IntoStem, IntoSuffix>(
+        stem: IntoStem,
+        derivational_suffix: IntoSuffix,
+    ) -> VerbSecondaryStem
+    where
+        IntoStem: Into<ActionVerbStem>,
+        IntoSuffix: Into<DerivationalVerbalSuffix>,
+    {
+        VerbSecondaryStem {
+            stem: stem.into(),
+            derivational_suffix: derivational_suffix.into(),
+        }
+    }
+
+    pub fn is_consonant_stem(&self) -> bool {
+        self.derivational_suffix.is_consonant_stem()
+    }
+
+    pub fn is_vowel_stem(&self) -> bool {
+        !self.is_consonant_stem()
+    }
+}
+
+impl Display for VerbSecondaryStem {
+    fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         let suffix = if self.stem.is_consonant_stem() {
-            if self.grammatical_suffix.has_juncture_vowel() {
-                self.grammatical_suffix.with_juncture()
+            if self.derivational_suffix.has_juncture_vowel() {
+                self.derivational_suffix.with_juncture()
             } else {
-                self.grammatical_suffix.without_juncture()
+                self.derivational_suffix.without_juncture()
             }
         } else if self.stem.is_vowel_stem() {
-            if self.grammatical_suffix.has_juncture_consonant() {
-                self.grammatical_suffix.with_juncture()
+            if self.derivational_suffix.has_juncture_consonant() {
+                self.derivational_suffix.with_juncture()
             } else {
-                self.grammatical_suffix.without_juncture()
+                self.derivational_suffix.without_juncture()
             }
         } else {
             unreachable!()
@@ -70,112 +143,3 @@ impl Display for ActionVerb {
         write!(f, "{}{}", self.stem, suffix)
     }
 }
-
-/*
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
-
-    #[test]
-    fn verb() {
-        use self::stem::{VerbPrimaryStem, VerbSecondaryStem};
-        use super::*;
-        use meaning_bear_sound::bound_sound::suffix::verbal_suffix::derivational_verbal_suffix::DerivationalVerbalSuffix;
-
-        let kak = VerbPrimaryStem::new("kak");
-        let mi = VerbPrimaryStem::new("mi");
-        let sase = DerivationalVerbalSuffix::new('s', "ase");
-        let ana = DerivationalVerbalSuffix::new('a', "na");
-        let ru = GrammaticalVerbalSuffix::new('r', "u");
-        let i = GrammaticalVerbalSuffix::new(None, "i");
-
-        {
-            let kak = kak.clone();
-            let ru = ru.clone();
-
-            let kaku = ActionVerb::new(kak, ru);
-            assert_eq!("kaku", kaku.to_string());
-        }
-
-        {
-            let kak = kak.clone();
-            let ru = ru.clone();
-            let sase = sase.clone();
-
-            let kakase = VerbSecondaryStem::new(kak, sase);
-            let kakaseru = ActionVerb::new(kakase, ru);
-            assert_eq!("kakaseru", kakaseru.to_string());
-        }
-
-        {
-            let kak = kak.clone();
-            let ana = ana.clone();
-            let i = i.clone();
-
-            let kakana = VerbSecondaryStem::new(kak, ana);
-            let kakanai = ActionVerb::new(kakana, i);
-            assert_eq!("kakanai", kakanai.to_string());
-        }
-
-        {
-            let mi = mi.clone();
-            let ru = ru.clone();
-
-            let miru = ActionVerb::new(mi, ru);
-            assert_eq!("miru", miru.to_string());
-        }
-
-        {
-            let mi = mi.clone();
-            let ru = ru.clone();
-            let sase = sase.clone();
-
-            let misase = VerbSecondaryStem::new(mi, sase);
-            let misaseru = ActionVerb::new(misase, ru);
-            assert_eq!("misaseru", misaseru.to_string());
-        }
-
-        {
-            let mi = mi.clone();
-            let ana = ana.clone();
-            let i = i.clone();
-
-            let mina = VerbSecondaryStem::new(mi, ana);
-            let minai = ActionVerb::new(mina, i);
-            assert_eq!("minai", minai.to_string());
-        }
-
-        {
-            let kak = kak.clone();
-            let sase = sase.clone();
-            let rare = DerivationalVerbalSuffix::new('r', "are");
-            let itagar = DerivationalVerbalSuffix::new('i', "tagar");
-            let imas = DerivationalVerbalSuffix::new('i', "mas");
-            let umai = GrammaticalVerbalSuffix::new('u', "mai");
-
-            let kakase = VerbSecondaryStem::new(kak, sase);
-            let kakaserare = VerbSecondaryStem::new(kakase, rare);
-            let kakaseraretagar = VerbSecondaryStem::new(kakaserare, itagar);
-            let kakaseraretagarimas = VerbSecondaryStem::new(kakaseraretagar, imas);
-            let kakaseraretagarimasumai = ActionVerb::new(kakaseraretagarimas, umai);
-            assert_eq!(
-                "kakaseraretagarimasumai",
-                kakaseraretagarimasumai.to_string()
-            );
-        }
-
-        {
-            let kak = kak.clone();
-            let ita = GrammaticalVerbalSuffix::new('i', "ta");
-
-            let kaita = ActionVerb::new(kak, ita);
-            assert_eq!("kaita", kaita.to_string());
-        }
-    }
-}
-*/
