@@ -4,45 +4,45 @@ use std::fmt::{Display, Formatter};
 
 /// 動詞幹
 #[derive(Debug, Clone)]
-pub enum VerbStem {
+pub enum ActionVerbStem {
     Primary(VerbPrimaryStem),
     Secondary(Box<VerbSecondaryStem>),
 }
 
-impl VerbStem {
+impl ActionVerbStem {
     pub fn is_consonant_stem(&self) -> bool {
         match self {
-            VerbStem::Primary(primary) => primary.is_consonant_stem(),
-            VerbStem::Secondary(secondary) => secondary.is_consonant_stem(),
+            ActionVerbStem::Primary(primary) => primary.is_consonant_stem(),
+            ActionVerbStem::Secondary(secondary) => secondary.is_consonant_stem(),
         }
     }
 
     pub fn is_vowel_stem(&self) -> bool {
         match self {
-            VerbStem::Primary(primary) => primary.is_vowel_stem(),
-            VerbStem::Secondary(secondary) => secondary.is_vowel_stem(),
+            ActionVerbStem::Primary(primary) => primary.is_vowel_stem(),
+            ActionVerbStem::Secondary(secondary) => secondary.is_vowel_stem(),
         }
     }
 }
 
-impl Display for VerbStem {
+impl Display for ActionVerbStem {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         match self {
-            VerbStem::Primary(primary) => primary.fmt(f),
-            VerbStem::Secondary(secondary) => secondary.fmt(f),
+            ActionVerbStem::Primary(primary) => primary.fmt(f),
+            ActionVerbStem::Secondary(secondary) => secondary.fmt(f),
         }
     }
 }
 
-impl From<VerbPrimaryStem> for VerbStem {
-    fn from(primary_stem: VerbPrimaryStem) -> VerbStem {
-        VerbStem::Primary(primary_stem)
+impl From<VerbPrimaryStem> for ActionVerbStem {
+    fn from(primary_stem: VerbPrimaryStem) -> ActionVerbStem {
+        ActionVerbStem::Primary(primary_stem)
     }
 }
 
-impl From<VerbSecondaryStem> for VerbStem {
-    fn from(secondary_stem: VerbSecondaryStem) -> VerbStem {
-        VerbStem::Secondary(box secondary_stem)
+impl From<VerbSecondaryStem> for ActionVerbStem {
+    fn from(secondary_stem: VerbSecondaryStem) -> ActionVerbStem {
+        ActionVerbStem::Secondary(box secondary_stem)
     }
 }
 
@@ -90,7 +90,7 @@ impl Display for VerbPrimaryStem {
 #[derive(Debug, Clone)]
 pub struct VerbSecondaryStem {
     /// 一次語幹
-    stem: VerbStem,
+    stem: ActionVerbStem,
 
     /// 派生接尾辞
     derivational_suffix: DerivationalVerbalSuffix,
@@ -102,7 +102,7 @@ impl VerbSecondaryStem {
         derivational_suffix: IntoSuffix,
     ) -> VerbSecondaryStem
     where
-        IntoStem: Into<VerbStem>,
+        IntoStem: Into<ActionVerbStem>,
         IntoSuffix: Into<DerivationalVerbalSuffix>,
     {
         VerbSecondaryStem {

@@ -1,7 +1,6 @@
 //! 動作動詞
 
-mod stem;
-use self::stem::VerbStem;
+use super::stem::ActionVerbStem;
 use meaning_bear_sound::bound_sound::suffix::verbal_suffix::grammatical_verbal_suffix::GrammaticalVerbalSuffix;
 use std::fmt;
 use std::fmt::{Display, Formatter};
@@ -10,7 +9,7 @@ use std::fmt::{Display, Formatter};
 #[derive(Debug, Clone)]
 pub struct ActionVerb {
     /// 語幹
-    stem: VerbStem,
+    stem: ActionVerbStem,
 
     /// 統語接尾辞
     syntactical_suffix: GrammaticalVerbalSuffix,
@@ -20,7 +19,7 @@ impl ActionVerb {
     /// 語幹と動詞接尾辞から動作動詞を作成する．
     pub fn new<IntoStem, IntoSuffix>(stem: IntoStem, suffix: IntoSuffix) -> ActionVerb
     where
-        IntoStem: Into<VerbStem>,
+        IntoStem: Into<ActionVerbStem>,
         IntoSuffix: Into<GrammaticalVerbalSuffix>,
     {
         ActionVerb {
@@ -33,7 +32,7 @@ impl ActionVerb {
 impl Display for ActionVerb {
     fn fmt(&self, f: &mut Formatter) -> fmt::Result {
         // 連声の処理
-        fn ita(stem: &VerbStem) -> Option<String> {
+        fn ita(stem: &ActionVerbStem) -> Option<String> {
             let mut result = stem.to_string();
             match result.pop().unwrap() {
                 'k' => result.push_str("ita"),

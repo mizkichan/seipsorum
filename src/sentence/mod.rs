@@ -1,25 +1,14 @@
 //! 文
-use meaning_bear_sound::bound_sound::postposition::phrase_postposition::thematic_postposition::ThematicPostposition;
-use meaning_bear_sound::bound_sound::suffix::nominal_suffix::copulative_suffix::CopulativeSuffix;
-use meaning_bear_sound::bound_sound::suffix::verbal_suffix::grammatical_verbal_suffix::GrammaticalVerbalSuffix;
-use meaning_bear_sound::unbound_sound::non_verbal::nominal::noun_qualitative::NounQualitative;
-use meaning_bear_sound::unbound_sound::non_verbal::nominal::noun_substantive::NounSubstantive;
-use meaning_bear_sound::unbound_sound::non_verbal::qualifier::attribute::Attribute;
-use meaning_bear_sound::unbound_sound::verbal::Verbal;
+use meaning_bear_sound;
+use word::stem::ActionVerbStem;
 
-/// 文を表す列挙型．
-///
-/// 文は客体文または主体文である (pp. 161-162)．
-pub enum Sentence {
-    /// 客体文
-    ObjectiveSentence(ObjectiveSentence),
-
-    /// 主体文
-    SubjectiveSentence(SubjectiveSentence),
-}
+/* TODO: To be written.
+/// 文を表す構造体．
+pub struct Sentence;
 
 /// 客体文を表す構造体．
 pub struct ObjectiveSentence;
+*/
 
 /// 主体文を表す構造体．
 ///
@@ -46,47 +35,85 @@ pub struct Theme {
     pub nominal_clause: NominalClause,
 
     /// 提題助辞
-    pub thematic_postposition: ThematicPostposition,
+    pub thematic_postposition: meaning_bear_sound::ThematicPostposition,
 }
 
-/// 名詞節を表す列挙型．
+/// 名詞節を表す構造体．
 ///
-/// 名詞節は次のうちいずれかである:
-///
-/// 1. 実名詞
-/// 2. 連体節
-/// 3. 連体節と名詞節
-///
-/// これは p.166 における議論を元にしたものではあるものの，本文とはやや異なる．
-/// 本文においては 1. の場合は含まれず，2. の場合は動名詞である言われるのみであり，3. の場合は連体形が直後に実名詞を伴う場合に限定されている．
-///
-/// 本文と異なる定義とした理由は，
-///
-/// 1. については，実名詞が単独で名詞節を構成できないとすると不便であること
-/// 2. については，動名詞とは連体形，および連体形に導かれる節すなわち連体節に他ならないこと
-/// 3. については，「波の極めて静かな青い海」は [波の極めて静かな][[青い]海] と解されるべきであると思われること
-///
-/// である．3.  に関しては「波の極めて静かな青い」という連体節が構成できるのかも知れず，今後変更がありうる．
-pub enum NominalClause {
+/// 主要部は実名詞，従属部は連体節である．連体節は省略されうる．
+pub struct NominalClause {
     /// 実名詞
-    NounSubstantive(NounSubstantive),
+    pub noun_substantive: meaning_bear_sound::NounSubstantive,
 
     /// 連体節
-    AttributiveClause(AttributiveClause),
-
-    /// 連体節と名詞節
-    // NOTE: 名称要検討
-    NominalWithAttributive {
-        /// 連体節
-        attributive_clause: AttributiveClause,
-
-        /// 名詞節
-        nominal_clause: Box<NominalClause>,
-    },
+    pub attributive_clause: Option<AttributiveClause>,
 }
 
 /// 連体節を表す構造体．
-pub struct AttributiveClause;
+///
+/// 主要部は連体語，従属部は？
+pub struct AttributiveClause {
+    /// 連体語
+    // NOTE: 名称要検討
+    pub attributive: Attributive,
+}
+
+/// 連体語を表す列挙型．
+///
+// NOTE: 「連体語」，`Attributive`, `AttributiveActionVerb`, `AttributiveQualitativeVerb`, `AttributiveNoun` という用語は未確定である．
+pub enum Attributive {
+    /// 連体詞
+    Attributie(meaning_bear_sound::Attribute),
+
+    /// 動作動詞の連体形
+    AttributiveActionVerb(AttributiveActionVerb),
+
+    /// 形状動詞の連体形
+    AttributiveQualitativeVerb(AttributiveQualitativeVerb),
+
+    /// 名詞の連体形
+    AttributiveNoun(AttributiveNoun),
+}
+
+/// 動作動詞の連体形を表す構造体．
+///
+/// 主要部は動作動詞終止形・連体形形成の文法接尾辞，従属部は動作動詞幹である．
+// TODO: 既に似たようなものを定義しているのでマージすること．
+pub struct AttributiveActionVerb {
+    /// 動作動詞終止形・連体形形成の文法接尾辞
+    // NOTE: これにあたる範疇はまだ作成されていない．仮に動詞文法接尾辞を取るものとする．
+    pub grammatical_verbal_suffix: meaning_bear_sound::GrammaticalVerbalSuffix,
+
+    /// 動作動詞幹
+    pub action_verb_stem: ActionVerbStem,
+}
+
+/// 形状動詞の連体形を表す構造体．
+///
+/// 主要部は形状動詞終止形・連体形形成の文法接尾辞，従属部は形状動詞幹である．
+pub struct AttributiveQualitativeVerb {
+    /// 形状動詞終止形・連体形形成の文法接尾辞
+    // NOTE: これにあたる範疇はまだ作成されていない．仮に動詞文法接尾辞を取るものとする．
+    pub grammatical_verbal_suffix: meaning_bear_sound::GrammaticalVerbalSuffix,
+
+    /// 形状動詞幹
+    pub qualitative_verb_stem: QualitativeVerbStem,
+}
+
+/// 形状動詞幹を表す構造体．
+pub struct QualitativeVerbStem;
+
+/// 名詞の連用形を表す構造体．
+///
+/// 主要部は繋辞連体形，従属部は名詞節である．たぶん．
+pub struct AttributiveNoun {
+    /// 繋辞連体形
+    // NOTE: これにあたる範疇はまだ作成されていない．仮に繋辞を取るものとする．
+    pub copulative_suffix: meaning_bear_sound::CopulativeSuffix,
+
+    /// 名詞節
+    pub nominal_clause: Box<NominalClause>,
+}
 
 /// 陳述部を表す構造体．
 ///

@@ -7,3 +7,4 @@
 
 pub mod meaning_bear_sound;
 pub mod sentence;
+pub mod word;
