@@ -1,3 +1,3 @@
 //! 副詞
 /// 副詞
-pub struct Adverb;
+pub struct Adverb(String);

@@ -1,3 +1,3 @@
 //! 形状動詞
 /// 形状動詞
-pub struct QualitativeVerb;
+pub struct QualitativeVerb(String);

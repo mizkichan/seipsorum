@@ -1,3 +1,3 @@
 //! 提題助辞
 /// 提題助辞
-pub struct ThematicPostposition;
+pub struct ThematicPostposition(String);
