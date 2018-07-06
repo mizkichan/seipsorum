@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ActionVerbStem","動作動詞幹を表す構造体．"]],"struct":[["VerbPrimaryStem","動詞の一次語幹"],["VerbSecondaryStem","動詞の二次語幹"]]});

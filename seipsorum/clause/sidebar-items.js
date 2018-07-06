@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["AttributiveClause","連体節を表す列挙型． 「この」「私の」「買った」「赤い」「綺麗な」など．"]],"struct":[["AttributiveActionVerb","動作動詞の連体形を表す構造体．"],["AttributiveNoun","名詞の連体形を表す構造体．"],["AttributiveQualitativeVerb","形状動詞の連体形を表す構造体．"],["NominalClause","名詞節を表す構造体． 「本」「この本」「私の本」「買った本」「赤い本」「綺麗な本」など．"]]});

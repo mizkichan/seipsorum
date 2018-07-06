@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["QualitativeVerbStem","形状動詞幹を表す構造体．"]]});

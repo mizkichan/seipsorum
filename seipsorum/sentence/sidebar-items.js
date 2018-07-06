@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Rheme","陳述部を表す構造体．"],["SubjectiveSentence","主体文を表す構造体．"],["Theme","主題部を表す構造体．"]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["action_verb","動作動詞"],["qualitative_verb","形状動詞"]]});
