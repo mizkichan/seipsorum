@@ -1,4 +1,5 @@
 extern crate seipsorum;
+use seipsorum::clause::{AttributiveClause, NominalClause, NominalClauseWithCase};
 use seipsorum::meaning_bear_sound::{
     ActionVerb, Adverb, Attribute, CaseSuffix, ConverbSuffixForActionVerb,
     ConverbalCopulativeSuffix, DerivationalVerbalSuffix, FiniteSuffixForActionVerb,
@@ -13,9 +14,15 @@ use seipsorum::meaning_bear_sound::{
 fn constitution97() {
     let kono = Attribute::new("kono");
     let kenpoo = NounSubstantive::new("kenpoo");
+    let kk = NominalClause::new(AttributiveClause::from(kono), kenpoo);
+
     let ga = CaseSuffix::new("ga");
+    let kkg = NominalClauseWithCase::new(kk, ga);
+
     let nihonkokumin = NounSubstantive::new("nihonkokumin");
     let ni = CaseSuffix::new("ni");
+    let nn = NominalClauseWithCase::new(nihonkokumin, ni);
+
     let hosyoosu = NounSubstantive::new("hosyoosu");
     let ru = FiniteSuffixForActionVerb::NonPerfective;
     let kihontekizinken = NounSubstantive::new("kihontekizinken");
